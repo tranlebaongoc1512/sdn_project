@@ -148,7 +148,9 @@ const Profile = () => {
             <Tab label="Booking Management" className={value === 5 ? styles.outlined : styles.plain}>Booking Management</Tab>
           </Tabs>
           <div>
-            {value === 1 && <div className={styles.tabContent}>Profile</div>}
+            {value === 1 && <div className={styles.tabContent}>
+              <img src='./assets/img/empty.png' alt='empty' />
+            </div>}
             {value === 2 &&
               <div className={styles.tabContent}>
                 <ClassManagement />
@@ -165,141 +167,137 @@ const Profile = () => {
           </div>
         </Box>
       )}
+      {role === 'teacher' && teacherData && (
+        <Box sx={{ display: 'flex', height: '100% !import' }}>
+          <Tabs
+            variant="scrollable"
+            orientation='vertical'
+            value={value}
+            onChange={(event, value) => setValue(value)}
+            className={styles.tabsMenu}
+          >
+            <Tab label="GENERAL" disabled className={styles.tabsLable}>General</Tab>
+            <Tab label="Profile" className={value === 1 ? styles.outlined : styles.plain}>Profile</Tab>
+            <Tab label="Class" className={value === 2 ? styles.outlined : styles.plain}>Class</Tab>
+          </Tabs>
+          <div>
+            {value === 1 && <div className={styles.tabContent}>
+              <img src='./assets/img/empty.png' alt='empty' />
+            </div>}
+            {value === 2 &&
+              <div className={styles.tabContent}>
+                <Typography variant="h4" sx={{ paddingTop: '15px' }}>
+                  Teaching class
+                </Typography>
+                <Grid container spacing={4} sx={{ padding: '25px' }}>
+                  {teacherData.map((card) => (
+                    <Grid item key={card.id} xs={12} sm={6} md={4} xl={4}>
+                      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                        <CardMedia
+                          component="div"
+                          sx={{
+                            pt: '56.25%',
+                          }}
+                          image={card.image}
+                        />
+                        <CardContent sx={{ flexGrow: 1 }}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {card.name}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            <AccessTimeIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
+                            {card.time}
+                            <DateRangeIcon sx={{ fontSize: 16, verticalAlign: 'middle', ml: 2, mr: 1 }} />
+                            {card.date}
+                          </Typography>
+                          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Typography variant="body2" color="text.secondary" sx={{ display: 'flex' }}>
+                              <PersonIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
+                              {card.classSize - card.slotLeft} / {card.classSize}
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2" color="text.secondary">
+                            Type: {card.type}
+                          </Typography>
+                        </CardContent>
+                        <CardActions style={{ margin: '0 auto' }}>
+                          <Link to={`${card.id}`}>
+                            <Button variant='contained' sx={{ backgroundColor: '#6dabb4' }}>Student List</Button>
+                          </Link>
+                        </CardActions>
+                      </Card>
+                    </Grid>
+                  ))
+                  }
+                </Grid>
+              </div>}
+          </div>
+        </Box>
+      )}
+      {role === 'member' && memberData && (
+        <div>
+          <Box sx={{ display: 'flex', height: '100% !import' }}>
+            <Tabs
+              variant="scrollable"
+              orientation='vertical'
+              value={value}
+              onChange={(event, value) => setValue(value)}
+              className={styles.tabsMenu}
+            >
+              <Tab label="GENERAL" disabled className={styles.tabsLable}>General</Tab>
+              <Tab label="Profile" className={value === 1 ? styles.outlined : styles.plain}>Profile</Tab>
+              <Tab label="Booked class" className={value === 2 ? styles.outlined : styles.plain}>Booked class</Tab>
+            </Tabs>
+            <div>
+              {value === 1 && <div className={styles.tabContent}>
+                <img src='./assets/img/empty.png' alt='empty' />
+              </div>}
+              {value === 2 &&
+                <div className={styles.tabContent}>
+                  <Typography variant="h4" sx={{ paddingTop: '15px' }}>
+                    Booked class
+                  </Typography>
+                  <Grid container spacing={4}>
+                    {memberData.map((card) => (
+                      <Grid item key={card.id} xs={12} sm={6} md={4} xl={4}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                          <CardMedia
+                            component="div"
+                            sx={{
+                              pt: '56.25%',
+                            }}
+                            image={card.classInfo.image}
+                          />
+                          <CardContent sx={{ flexGrow: 1 }}>
+                            <Typography gutterBottom variant="h5" component="h2">
+                              {card.classInfo.name}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              <AccessTimeIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
+                              {card.classInfo.time}
+                              <DateRangeIcon sx={{ fontSize: 16, verticalAlign: 'middle', ml: 2, mr: 1 }} />
+                              {card.classInfo.date}
+                            </Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                              <Typography variant="body2" color="text.secondary" sx={{ display: 'flex' }}>
+                                <PersonIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
+                                {card.classInfo.slotLeft} / {card.classInfo.classSize}
+                              </Typography>
+                            </Box>
+                            <Typography variant="body2" color="text.secondary">
+                              Type: {card.classInfo.type}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </div>}
+            </div>
+          </Box>
+        </div>
+      )}
     </div>
-    // <Container maxWidth="xl">
-    //   <Grid container spacing={4}>
-    //     <Grid item xs={12} lg={6}>
-    //       <Card style={{ marginTop: '50px' }}>
-    //         <CardMedia component="img" image={image} alt="Avatar" />
-    //         <CardContent>
-    //           <Typography variant="h3" component="h3">
-    //             {fullName}
-    //           </Typography>
-    //           <Typography variant="body1">{role}</Typography>
-    //           <Typography variant="body1">{email}</Typography>
-    //         </CardContent>
-    //       </Card>
-    //     </Grid>
-
-    //     <Grid item xs={12} lg={6} style={{ marginTop: '50px' }}>
-    //       {role === 'admin' && (
-    //         <Card>
-    //           <Typography variant="h3" component="h3">
-    //             Admin Control
-    //           </Typography>
-    //           <br />
-    //           <Button variant="contained" component={Link} to="/classmanagement" style={{marginTop: '40px'}}>
-    //             Class Management
-    //           </Button>
-    //           <br />
-    //           <Button variant="contained" component={Link} to="/teachermanagement" style={{marginTop: '40px'}}>
-    //             Teacher Management
-    //           </Button>
-    //           <br />
-    //           <Button variant="contained" component={Link} to="/membershipmanagement" style={{marginTop: '40px'}}>
-    //             Membership Management
-    //           </Button>
-
-    //           <br />
-    //           <Button variant="contained" component={Link} to="/bookingmanagement" style={{marginTop: '40px'}}>
-    //             Booking Management
-    //           </Button>
-    //         </Card>
-    //       )}
-
-    //       {role === 'teacher' && teacherData && (
-    //         <div>
-    //           <Typography variant="h3" component="h3">
-    //                   Teaching class
-    //               </Typography>
-    //           <Grid container spacing={4}>
-    //             {teacherData.map((card) => (
-    //               <Grid item key={card.id} xs={12} sm={6} md={6} xl={6}>
-    //                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-    //                   <CardMedia
-    //                     component="div"
-    //                     sx={{
-    //                       pt: '56.25%',
-    //                     }}
-    //                     image={card.image}
-    //                   />
-    //                   <CardContent sx={{ flexGrow: 1 }}>
-    //                     <Typography gutterBottom variant="h5" component="h2">
-    //                       {card.name}
-    //                     </Typography>
-    //                     <Typography variant="body2" color="text.secondary">
-    //                       <AccessTimeIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
-    //                       {card.time}
-    //                       <DateRangeIcon sx={{ fontSize: 16, verticalAlign: 'middle', ml: 2, mr: 1 }} />
-    //                       {card.date}
-    //                     </Typography>
-    //                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-    //                       <Typography variant="body2" color="text.secondary" sx={{ display: 'flex' }}>
-    //                         <PersonIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
-    //                         {card.slotLeft} / {card.classSize}
-    //                       </Typography>
-    //                     </Box>
-    //                     <Typography variant="body2" color="text.secondary">
-    //                       Type: {card.type}
-    //                     </Typography>
-    //                   </CardContent>
-    //                   <CardActions style={{ margin: '0 auto' }}>
-    //                     <Link to={`${card.id}`}>
-    //                       <Button className="btn">Student List</Button>
-    //                     </Link>
-    //                   </CardActions>
-    //                 </Card>
-    //               </Grid>
-    //             ))}
-    //           </Grid>
-    //         </div>
-    //       )}
-
-    //       {role === 'member' && memberData && (
-    //         <div>
-    //           <Typography variant="h3" component="h3">
-    //             Booked class
-    //           </Typography>
-    //           <Grid container spacing={4}>
-    //             {memberData.map((card) => (
-    //               <Grid item key={card.id} xs={12} sm={6} md={6} xl={6}>
-    //                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-    //                   <CardMedia
-    //                     component="div"
-    //                     sx={{
-    //                       pt: '56.25%',
-    //                     }}
-    //                     image={card.classInfo.image}
-    //                   />
-    //                   <CardContent sx={{ flexGrow: 1 }}>
-    //                     <Typography gutterBottom variant="h5" component="h2">
-    //                       {card.classInfo.name}
-    //                     </Typography>
-    //                     <Typography variant="body2" color="text.secondary">
-    //                       <AccessTimeIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
-    //                       {card.classInfo.time}
-    //                       <DateRangeIcon sx={{ fontSize: 16, verticalAlign: 'middle', ml: 2, mr: 1 }} />
-    //                       {card.classInfo.date}
-    //                     </Typography>
-    //                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-    //                       <Typography variant="body2" color="text.secondary" sx={{ display: 'flex' }}>
-    //                         <PersonIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 1 }} />
-    //                         {card.classInfo.slotLeft} / {card.classInfo.classSize}
-    //                       </Typography>
-    //                     </Box>
-    //                     <Typography variant="body2" color="text.secondary">
-    //                       Type: {card.classInfo.type}
-    //                     </Typography>
-    //                   </CardContent>
-    //                 </Card>
-    //               </Grid>
-    //             ))}
-    //           </Grid>
-    //         </div>
-    //       )}
-    //     </Grid>
-    //   </Grid>
-    // </Container>
   );
 };
 

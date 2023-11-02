@@ -10,16 +10,6 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Profile from './components/Profile/Profile';
-import TeacherManagement from './components/TeacherManagement/TeacherManagement';
-import AddTeacher from './components/TeacherManagement/AddTeacher';
-import UpdateTeacher from './components/TeacherManagement/UpdateTeacher';
-import ClassManagement from './components/ClassManagement/ClassManagement';
-import UpdateClass from './components/ClassManagement/UpdateClass';
-import AddClass from './components/ClassManagement/AddClass';
-import MembershipManagement from './components/MembershipManagement.js/MembershipManagement';
-import UpdateMember from './components/MembershipManagement.js/UpdateMember';
-import AddMember from './components/MembershipManagement.js/AddMember';
-import BookingManagement from './components/BookingManagement/BookingManagement';
 
 function App() {
   return (
@@ -34,16 +24,6 @@ function App() {
           <Route path='/register' element={<Register />}></Route>
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='/class/:id' element={<ClassDetails />}></Route>
-          <Route path='/teachermanagement' element={<TeacherManagement />}></Route>
-          <Route path='/mangagement/teacher/add' element={<AddTeacher />}></Route>
-          <Route path='/mangagement/teacher/update/:id' element={<UpdateTeacher />}></Route>
-          <Route path='/classmanagement' element={<ClassManagement />}></Route>
-          <Route path='/mangagement/class/add' element={<AddClass />}></Route>
-          <Route path='/mangagement/class/update/:id' element={<UpdateClass />}></Route>
-          <Route path='/membershipmanagement' element={<MembershipManagement />}></Route>
-          <Route path='/mangagement/member/add' element={<AddMember />}></Route>
-          <Route path='/mangagement/member/update/:id' element={<UpdateMember />}></Route>
-          <Route path='/bookingmanagement' element={<BookingManagement />}></Route>
         </Routes>
       </AuthProvider>
       <Footer />
